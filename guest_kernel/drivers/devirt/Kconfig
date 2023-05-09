@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: GPL-2.0-only
+#
+# De-virt support for guest kernels
+#
+config DEVIRT
+	tristate "De-virtualization drivers"
+	help
+	  enable devirt support
