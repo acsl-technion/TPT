@@ -80,7 +80,7 @@ NUM_CPUS_MAX_STR="-$(( $NUM_CPUS - 1 ))"
 sudo numactl --physcpubind 0${NUM_CPUS_MAX_STR} --membind 0 \
 qemu-system-x86_64 -s -name debug-threads=on \
 -serial stdio -m ${MEM_SIZE}G \
--drive file=$SOURCE_DIR/ubuntu.img,if=virtio,format=raw \
+-drive file=$SOURCE_DIR/ubuntu.img,if=virtio,format=qcow2 \
 -machine pc,${DEVIRT_MACHINE} \
 -enable-kvm -cpu host,migratable=no,+tsc,+tsc-deadline,+rdtscp,+invtsc,+monitor \
 $MEMORY \
@@ -91,5 +91,5 @@ $MEMORY \
 -rtc clock=host \
 -qmp tcp:localhost:4444,server,nowait \
 -vnc localhost:5900 \
--kernel $GUEST_DIR/arch/x86/boot/bzImage -append "nokaslr norandmaps root=/dev/vda2 console=ttyS0 earlyprintk=serial,ttyS0 ignore_loglevel printk_delay=0 systemd.unified_cgroup_hierarchy=1 nopku ${KPTI_STR}" \
+-kernel $GUEST_DIR/arch/x86/boot/bzImage -append "nokaslr norandmaps root=/dev/vda1 console=ttyS0 earlyprintk=serial,ttyS0 ignore_loglevel printk_delay=0 systemd.unified_cgroup_hierarchy=1 nopku ${KPTI_STR}" \
 $DEVIRT \
