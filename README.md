@@ -12,14 +12,24 @@ This source-code is POC and given as-is. Code structure can be improved, otherwi
 
 ## Quick Setup:
 
+### Dependencies:
+
+For Linux kernel compilation:
+
+https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel
+
+For QEMU compilation
+
+https://wiki.qemu.org/Hosts/Linux
+
 In each of their respective folders:
 
 ### Host Kernel
 ```bash
 make tpt_defconfig
 make -j$(nproc)
-sudo make install
 sudo make modules_install
+sudo make install
 ```
 
 ### Guest Kernel
@@ -28,7 +38,7 @@ make tpt_defconfig
 make -j$(nproc)
 ```
 
-### Qemu
+### QEMU
 ```bash
 mkdir build && cd build
 ../configure --target-list=x86_64-softmmu  
@@ -83,7 +93,7 @@ General statistics:
     total time:                          `31.3870s`
     
 tpt@tpt:~$ # Enable TPT for Sysbench
-tpt@tot:~$ echo sysbench | sudo tee /sys/kernel/mm/devirt/task_name
+tpt@tpt:~$ echo sysbench | sudo tee /sys/kernel/mm/devirt/task_name
 tpt@tpt:~$ sysbench memory --memory-block-size=4G --memory-access-mode=rnd run
 sysbench 1.0.18 (using system LuaJIT 2.1.0-beta3)
 ...
